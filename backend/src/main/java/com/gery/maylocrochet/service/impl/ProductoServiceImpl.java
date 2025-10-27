@@ -18,29 +18,33 @@ public class ProductoServiceImpl implements ProductoService {
   }
 
   @Override
+  public Producto saveProducto(Producto producto) {
+    return productoRepository.save(producto);
+  }
+
+  @Override
   public List<Producto> getAllProductos() {
     return productoRepository.findAll();
   }
 
   @Override
   public Producto updateProducto(Long id, Producto producto) {
-      return productoRepository.findById(id)
-              .map(existingProducto -> {
-                  producto.setId(id); // Asegurar que el id coincida
-                  return productoRepository.save(producto);
-              })
-              .orElseThrow(() -> new RuntimeException("Producto con id " + id + " no encontrado"));
-  }
-
-
-  @Override
-  public Producto saveProducto(Producto producto) {
-    return productoRepository.save(producto);
+    return productoRepository.findById(id)
+        .map(existingProducto -> {
+          producto.setId(id); // Asegurar que el id coincida
+          return productoRepository.save(producto);
+        })
+        .orElseThrow(() -> new RuntimeException("Producto con id " + id + " no encontrado"));
   }
 
   @Override
   public void deleteProducto(Long id) {
     productoRepository.deleteById(id);
   }
-  
+
+  @Override
+  public Optional<Producto> getProductoById(Long id) {
+    return productoRepository.findById(id);
+  }
+
 }
