@@ -14,7 +14,10 @@ import com.gery.maylocrochet.model.Producto;
 import com.gery.maylocrochet.repository.ProductoRepository;
 import com.gery.maylocrochet.service.ProductoService;
 
+import lombok.extern.slf4j.Slf4j;
+
 @Service
+@Slf4j
 public class ProductoServiceImpl implements ProductoService {
 
     private final ProductoRepository productoRepository;
@@ -37,16 +40,13 @@ public class ProductoServiceImpl implements ProductoService {
     @Override
     public Producto updateProducto(Long id, Producto producto) {
         return productoRepository
-            .findById(id)
-            .map(existingProducto -> {
-                producto.setId(id);
-                return productoRepository.save(producto);
-            })
-            .orElseThrow(() ->
-                new ResourceNotFoundException(
-                    "Producto con id " + id + " no encontrado"
-                )
-            );
+                .findById(id)
+                .map(existingProducto -> {
+                    producto.setId(id);
+                    return productoRepository.save(producto);
+                })
+                .orElseThrow(() -> new ResourceNotFoundException(
+                        "Producto con id " + id + " no encontrado"));
     }
 
     @Override
@@ -60,39 +60,32 @@ public class ProductoServiceImpl implements ProductoService {
     @Override
     public Producto getProductoById(Long id) {
         return productoRepository
-            .findById(id)
-            .orElseThrow(() ->
-                new ResourceNotFoundException(
-                    "Producto con id " + id + " no encontrado"
-                )
-            );
+                .findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException(
+                        "Producto con id " + id + " no encontrado"));
     }
 
     @Override
     public String guardarArchivo(MultipartFile archivo, String subCarpeta)
-        throws IOException {
-        if (archivo == null || archivo.isEmpty()) return null;
+            throws IOException {
+        if (archivo == null || archivo.isEmpty())
+            return null;
 
-        // Generamos nombre único: 162534_patron_oso.pdf
-        String nombreArchivo =
-            System.currentTimeMillis() + "_" + archivo.getOriginalFilename();
-
-        // Ruta: uploads/patrones/nombre.pdf o uploads/imagenes/nombre.jpg
+        String nombreArchivo = System.currentTimeMillis() + "_" + archivo.getOriginalFilename();
         Path ruta = Paths.get("uploads/" + subCarpeta + "/" + nombreArchivo);
 
-        // Crea las carpetas si no existen (ej: crea 'uploads/patrones')
         Files.createDirectories(ruta.getParent());
-
-        // Guarda el archivo
         Files.write(ruta, archivo.getBytes());
 
-        // Retorna la ruta para la DB: /uploads/patrones/archivo.pdf
+        log.info("Archivo guardado: {}", ruta);
         return "/uploads/" + subCarpeta + "/" + nombreArchivo;
     }
 
     // Ahora puedes simplificar guardarImagen usando el método de arriba:
-/*     @Override
-    public String guardarImagen(MultipartFile imagen) throws IOException {
-        return guardarArchivo(imagen, "imagenes");
-    } */
+    /*
+     * @Override
+     * public String guardarImagen(MultipartFile imagen) throws IOException {
+     * return guardarArchivo(imagen, "imagenes");
+     * }
+     */
 }
