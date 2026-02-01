@@ -5,9 +5,9 @@ import { useSearchParams } from "next/navigation";
 import { ArrowUpDown } from "lucide-react";
 
 // Importamos nuestros nuevos componentes
-import { ProductFilter } from "@/app/components/catalogo/ProductFilter";
-import { ProductCard } from "@/app/components/ProductCard";
-import { Producto } from "@/app/types/producto";
+import { ProductFilter } from "@/components/catalogo/ProductFilter";
+import { ProductCard } from "@/components/ProductCard";
+import { Producto } from "@/types/producto";
 
 export default function CatalogoClient({
   productos,

@@ -5,9 +5,9 @@ import { Menu } from "lucide-react";
 import { useState } from "react";
 import Link from "next/link";
 
-import { Sheet, SheetContent, SheetTrigger } from "@/app/components/ui/Sheet";
-import { ShopBagButton } from "@/app/components/ui/ShopBagButton";
-import { useCart } from "@/app/context/CartContext"; // Importamos el hook
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/Sheet";
+import { ShopBagButton } from "@/components/ui/ShopBagButton";
+import { useCart } from "@/context/CartContext"; // Importamos el hook
 import { SearchBar } from "./SearchBar";
 import { NavLinks } from "./NavLinks";
 

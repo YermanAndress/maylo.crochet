@@ -1,6 +1,6 @@
 // @/app/components/catalogo/PatternsSection.tsx
-import { getProductos } from "@/app/services/api";
-import { Producto } from "@/app/types/producto";
+import { getProductos } from "@/services/api";
+import { Producto } from "@/types/producto";
 import { PatternItem } from "./PatternItem";
 
 export default async function PatternsSection() {

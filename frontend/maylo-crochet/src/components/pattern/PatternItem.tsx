@@ -3,8 +3,8 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { AddToCartButton } from "@/app/components/ui/AddToCartButton";
-import { Producto } from "@/app/types/producto";
+import { AddToCartButton } from "@/components/ui/AddToCartButton";
+import { Producto } from "@/types/producto";
 import { FormatPrice } from "@/lib/utils";
 
 export function PatternItem({ item }: { item: Producto }) {

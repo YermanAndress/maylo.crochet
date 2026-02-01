@@ -1,7 +1,7 @@
-import { InstagramFeed } from "@/app/components/layout/InstagramFeed";
+import { InstagramFeed } from "@/components/layout/InstagramFeed";
 import { CategoriesSection } from "@/app/category/CategoriesSection";
-import FeaturedProducts from "@/app/components/FeaturedProducts";
-import PatternsSection from "@/app/components/pattern/PatternsSection";
+import FeaturedProducts from "@/components/FeaturedProducts";
+import PatternsSection from "@/components/pattern/PatternsSection";
 
 export default async function Page() {
   return (

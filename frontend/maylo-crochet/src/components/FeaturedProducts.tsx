@@ -1,7 +1,7 @@
 // @/app/components/catalogo/FeaturedProducts.tsx
 import Link from "next/link";
-import { getProductos } from "@/app/services/api";
-import { Producto } from "@/app/types/producto";
+import { getProductos } from "@/services/api";
+import { Producto } from "@/types/producto";
 import { ProductCard } from "./ProductCard";
 
 export default async function FeaturedProducts() {

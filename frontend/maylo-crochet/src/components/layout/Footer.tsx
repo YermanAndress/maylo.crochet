@@ -1,7 +1,7 @@
 // @/app/components/layout/Footer.tsx
 import { Heart } from "lucide-react";
 import Link from "next/link";
-import { FOOTER_LINKS, SOCIAL_LINKS } from "@/app/config/footer";
+import { FOOTER_LINKS, SOCIAL_LINKS } from "@/config/footer";
 
 // Sub-componente interno (solo para uso aquí dentro)
 function FooterSection({

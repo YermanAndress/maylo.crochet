@@ -2,7 +2,7 @@
 "use client";
 
 import { createContext, useContext, useState, ReactNode } from "react";
-import { Producto } from "@/app/types/producto";
+import { Producto } from "@/types/producto";
 
 interface CartItem extends Producto {
   quantity: number;

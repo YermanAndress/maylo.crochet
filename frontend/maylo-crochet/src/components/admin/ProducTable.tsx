@@ -4,9 +4,9 @@ import { Pencil, Trash2, Loader2 } from "lucide-react"; // Añadimos un spinner
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
-import ProductForm from "@/app/components/admin/ProductForm";
-import { Producto } from "@/app/types/producto";
-import Modal from "@/app/components/ui/Modal";
+import ProductForm from "@/components/admin/ProductForm";
+import { Producto } from "@/types/producto";
+import Modal from "@/components/ui/Modal";
 
 export default function ProducTable({
   productosIniciales,

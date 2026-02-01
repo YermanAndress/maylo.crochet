@@ -3,7 +3,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Producto } from "@/app/types/producto";
+import { Producto } from "@/types/producto";
 
 export function useProductos() {
   const [productos, setProductos] = useState<Producto[]>([]);

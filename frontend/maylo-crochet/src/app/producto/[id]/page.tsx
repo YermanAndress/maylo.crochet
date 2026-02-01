@@ -2,9 +2,9 @@
 import { notFound } from "next/navigation";
 import Image from "next/image";
 
-import { AddToCartButton } from "@/app/components/ui/AddToCartButton";
-import { getProductos } from "@/app/services/api";
-import { Producto } from "@/app/types/producto";
+import { AddToCartButton } from "@/components/ui/AddToCartButton";
+import { getProductos } from "@/services/api";
+import { Producto } from "@/types/producto";
 import { FormatPrice } from "@/lib/utils";
 
 export async function generateStaticParams() {
@@ -97,7 +97,7 @@ export default async function ProductoPage({
               className="py-5 text-lg shadow-lg"
             />
 
-{/*             {producto.pdfUrl && (
+            {/*             {producto.pdfUrl && (
               <a
                 href={`${baseUrl}${producto.pdfUrl}`}
                 target="_blank"

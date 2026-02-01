@@ -1,7 +1,7 @@
 import { Suspense } from "react";
 
 import CatalogoClient from "@/app/catalogo/CatalogoClient";
-import { getProductos } from "@/app/services/api";
+import { getProductos } from "@/services/api";
 
 export default async function CatalogoPage() {
   // Obtenemos los productos desde el servidor

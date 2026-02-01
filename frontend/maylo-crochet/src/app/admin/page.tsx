@@ -1,6 +1,6 @@
-import ProducTable from "@/app/components/admin/ProducTable";
-import { getProductos } from "@/app/services/api";
-import { Producto } from "@/app/types/producto";
+import ProducTable from "@/components/admin/ProducTable";
+import { getProductos } from "@/services/api";
+import { Producto } from "@/types/producto";
 
 import { Plus } from "lucide-react";
 import Link from "next/link";

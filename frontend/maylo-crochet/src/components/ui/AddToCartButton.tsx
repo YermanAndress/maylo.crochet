@@ -1,9 +1,9 @@
 "use client";
 
 import { ShoppingBag } from "lucide-react";
-import { useCart } from "@/app/context/CartContext";
+import { useCart } from "@/context/CartContext";
 import { toast } from "sonner";
-import { Producto } from "@/app/types/producto";
+import { Producto } from "@/types/producto";
 import { cn } from "@/lib/utils";
 
 interface Props {
