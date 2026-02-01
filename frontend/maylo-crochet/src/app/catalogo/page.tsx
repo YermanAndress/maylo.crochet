@@ -1,6 +1,6 @@
 import { Suspense } from "react";
 
-import CatalogoClient from "@/app/catalogo/CatalogoClient";
+import CatalogoClient from "@/components/catalogo/CatalogoClient";
 import { getProductos } from "@/services/api";
 
 export default async function CatalogoPage() {
