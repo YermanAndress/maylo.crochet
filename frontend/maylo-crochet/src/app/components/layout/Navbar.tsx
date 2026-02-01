@@ -1,19 +1,26 @@
 // @/app/components/layout/Navbar.tsx
 "use client";
 
-import { Menu, Search } from "lucide-react";
+import { Menu } from "lucide-react";
 import { useState } from "react";
 import Link from "next/link";
 
 import { Sheet, SheetContent, SheetTrigger } from "@/app/components/ui/Sheet";
 import { ShopBagButton } from "@/app/components/ui/ShopBagButton";
+import { useCart } from "@/app/context/CartContext"; // Importamos el hook
+import { SearchBar } from "./SearchBar";
 import { NavLinks } from "./NavLinks";
 
 export function Navbar() {
+  // Extraemos 'items' que es donde están los productos guardados
+  const { items } = useCart();
   const [isOpen, setIsOpen] = useState(false);
 
+  // Calculamos la cantidad total de artículos sumando sus cantidades individuales
+  const totalItems = items.reduce((acc, item) => acc + (item.quantity || 1), 0);
+
   return (
-    <header className="sticky top-0 z-50 w-full bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 border-b border-border">
+    <header className="sticky top-0 z-50 w-full bg-background/95 backdrop-blur border-b border-border">
       <nav className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 lg:px-8">
         {/* Logo */}
         <Link
@@ -30,29 +37,32 @@ export function Navbar() {
 
         {/* Actions */}
         <div className="flex items-center gap-2 md:gap-4">
-          <button className="hidden md:flex p-2 hover:bg-muted rounded-full transition-colors">
-            <Search className="h-5 w-5" />
-            <span className="sr-only">Buscar</span>
-          </button>
+          {/* BARRA DE BÚSQUEDA: Ahora visible en Desktop */}
+          <div className="hidden md:block">
+            <SearchBar />
+          </div>
 
-          <ShopBagButton count={0} />
+          <Link href="/cart" className="lg:block">
+            <ShopBagButton count={totalItems} />
+          </Link>
 
           {/* Mobile menu */}
           <Sheet open={isOpen} onOpenChange={setIsOpen}>
             <SheetTrigger asChild className="lg:hidden">
-              <button className="p-2 hover:bg-muted rounded-full transition-colors">
+              <button className="p-2 hover:bg-muted rounded-full transition-colors cursor-pointer">
                 <Menu className="h-6 w-6" />
-                <span className="sr-only">Abrir menú</span>
               </button>
             </SheetTrigger>
             <SheetContent side="right" className="w-[300px]">
               <div className="flex flex-col gap-8 mt-8">
-                <span className="font-serif text-2xl font-semibold">
-                  Hilitos de Amor
-                </span>
+                <span className="font-serif text-2xl font-semibold">Menú</span>
+
+                {/* Búsqueda en móvil */}
+                <SearchBar onSearch={() => setIsOpen(false)} />
+
                 <NavLinks
                   className="flex flex-col gap-6"
-                  onClick={() => setIsOpen(false)} // Se cierra al hacer clic
+                  onClick={() => setIsOpen(false)}
                 />
               </div>
             </SheetContent>

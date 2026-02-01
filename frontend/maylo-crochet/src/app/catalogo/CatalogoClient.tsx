@@ -6,7 +6,7 @@ import { ArrowUpDown } from "lucide-react";
 
 // Importamos nuestros nuevos componentes
 import { ProductFilter } from "@/app/components/catalogo/ProductFilter";
-import { CardList } from "@/app/components/catalogo/CardList";
+import { ProductCard } from "@/app/components/ProductCard";
 import { Producto } from "@/app/types/producto";
 
 export default function CatalogoClient({
@@ -15,6 +15,7 @@ export default function CatalogoClient({
   productos: Producto[];
 }) {
   const searchParams = useSearchParams();
+  const searchQuery = searchParams.get("search") || "";
   const categoriaQuery = searchParams.get("categoria");
 
   const [categoria, setCategoria] = useState(categoriaQuery || "Todas");
@@ -32,18 +33,23 @@ export default function CatalogoClient({
 
   const productosFiltrados = useMemo(() => {
     return productos
-      .filter(
-        (p) =>
-          (categoria === "Todas" ||
-            p.categoria.toLowerCase() === categoria.toLowerCase()) &&
-          p.precio <= precioMax,
-      )
+      .filter((p) => {
+        const matchCategoria =
+          categoria === "Todas" || p.categoria === categoria;
+        const matchPrecio = p.precio <= precioMax;
+        const matchSearch =
+          searchQuery === "" ||
+          p.nombre.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          p.descripcion.toLowerCase().includes(searchQuery.toLowerCase());
+
+        return matchCategoria && matchPrecio && matchSearch;
+      })
       .sort((a, b) => {
         if (orden === "precio-asc") return a.precio - b.precio;
         if (orden === "precio-desc") return b.precio - a.precio;
         return 0;
       });
-  }, [productos, categoria, precioMax, orden]);
+  }, [productos, categoria, precioMax, orden, searchQuery]);
 
   return (
     <div className="flex flex-col lg:flex-row gap-8">
@@ -80,9 +86,13 @@ export default function CatalogoClient({
         </div>
 
         {/* Grid dinámico */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6">
-          {productosFiltrados.map((producto) => (
-            <CardList key={producto.id} producto={producto} />
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {productos.map((producto) => (
+            <ProductCard
+              key={producto.id}
+              producto={producto}
+              variant="compact"
+            />
           ))}
         </div>
 

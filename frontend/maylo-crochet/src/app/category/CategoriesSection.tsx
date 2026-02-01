@@ -4,6 +4,7 @@
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
+
 import { CategoryItem } from "./CategoryItem";
 
 const CATEGORIES_DATA = [

@@ -73,9 +73,15 @@ export default function ProductForm({
     const formData = new FormData(e.currentTarget);
     const fileInput = formData.get("imagen") as File;
 
-    // Validación: si no hay preview y no hay archivo, error
     if (!preview && (!fileInput || fileInput.size === 0)) {
       alert("La imagen es obligatoria.");
+      return;
+    }
+
+    // Validar tamaño de archivo
+    if (fileInput && fileInput.size > 5 * 1024 * 1024) {
+      // 5MB
+      alert("La imagen no debe superar 5MB");
       return;
     }
 
@@ -109,12 +115,16 @@ export default function ProductForm({
         },
       );
 
-      if (res.ok) {
-        alert("¡Operación exitosa!");
-        onSuccess?.();
+      if (!res.ok) {
+        const error = await res.json();
+        throw new Error(error.error || "Error al guardar el producto");
       }
+
+      alert("¡Operación exitosa!");
+      onSuccess?.();
     } catch (error) {
       console.error("Error:", error);
+      alert(error instanceof Error ? error.message : "Error desconocido");
     } finally {
       setLoading(false);
     }

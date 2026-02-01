@@ -1,7 +1,7 @@
-const API_URL = "http://localhost:8080/api/productos";
+const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8080";
 
 export const getProductos = async () => {
-  const res = await fetch(API_URL, { cache: "no-store" }); // 'no-store' para datos siempre frescos
+  const res = await fetch(`${API_URL}/api/productos`, { cache: "no-store" });
   if (!res.ok) throw new Error("Error al obtener productos");
   return res.json();
 };

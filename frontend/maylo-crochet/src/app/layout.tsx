@@ -1,8 +1,10 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import type { Metadata } from "next";
+import { Toaster } from "sonner";
 
 import { Navbar } from "@/app/components/layout/Navbar";
 import { Footer } from "@/app/components/layout/Footer";
+import { CartProvider } from "@/app/context/CartContext";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -28,13 +30,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="es" suppressHydrationWarning>
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        <Navbar />
-        <main className="min-h-screen">{children}</main>
-        <Footer />
+    <html lang="es">
+      <body>
+        <CartProvider>
+          <Navbar />
+          {children}
+          <Toaster richColors position="bottom-right" />
+          <Footer />
+        </CartProvider>
       </body>
     </html>
   );
