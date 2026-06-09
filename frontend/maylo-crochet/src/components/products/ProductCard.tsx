@@ -14,6 +14,8 @@ interface Props {
   variant?: "default" | "compact";
 }
 
+const API_URL = process.env.NEXT_PUBLIC_API_URL;
+
 export function ProductCard({ producto, variant = "default" }: Props) {
   const isCompact = variant === "compact";
 
@@ -29,7 +31,7 @@ export function ProductCard({ producto, variant = "default" }: Props) {
         {/* Imagen */}
         <div className="relative aspect-square overflow-hidden bg-muted">
           <Image
-            src={`http://127.0.0.1:8080${producto.imagen}`}
+            src={`${API_URL}${producto.imagen}`}
             alt={producto.nombre}
             fill
             className="object-cover transition-transform duration-500 group-hover:scale-110"

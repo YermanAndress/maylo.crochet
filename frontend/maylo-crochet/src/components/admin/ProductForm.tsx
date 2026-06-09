@@ -9,6 +9,8 @@ interface ProductFormProps {
   onSuccess?: () => void;
 }
 
+const API_URL = process.env.NEXT_PUBLIC_API_URL;
+
 export default function ProductForm({
   productoId,
   onSuccess,
@@ -26,9 +28,7 @@ export default function ProductForm({
     if (productoId) {
       const fetchProducto = async () => {
         try {
-          const res = await fetch(
-            `http://127.0.0.1:8080/api/productos/${productoId}`,
-          );
+          const res = await fetch(`${API_URL}/api/productos/${productoId}`);
           const data = await res.json();
 
           if (formRef.current) {
@@ -44,7 +44,7 @@ export default function ProductForm({
 
           // Importante: Si la imagen existe, le ponemos la URL del backend para verla
           if (data.imagen) {
-            setPreview(`http://127.0.0.1:8080${data.imagen}`);
+            setPreview(`${API_URL}${data.imagen}`);
           }
           if (data.pdfUrl) setPdfName("Archivo cargado anteriormente");
         } catch (error) {
@@ -96,7 +96,7 @@ export default function ProductForm({
     } else if (productoId && preview) {
       // Caso B: No hay archivo nuevo, pero tenemos una imagen previa (Edición)
       // Extraemos solo la ruta relativa (/uploads/...) quitando el dominio
-      const rutaRelativa = preview.replace("http://127.0.0.1:8080", "");
+      const rutaRelativa = preview.replace(`${API_URL}/`, "");
       formData.set("imagen", rutaRelativa);
     }
 
@@ -107,8 +107,8 @@ export default function ProductForm({
     try {
       const res = await fetch(
         productoId
-          ? `http://127.0.0.1:8080/api/productos/${productoId}`
-          : "http://127.0.0.1:8080/api/productos",
+          ? `${API_URL}/api/productos/${productoId}`
+          : `${API_URL}/api/productos`,
         {
           method: productoId ? "PUT" : "POST",
           body: formData,

@@ -7,6 +7,8 @@ import { getProductos } from "@/services/api";
 import { Producto } from "@/types/producto";
 import { FormatPrice } from "@/lib/utils";
 
+const API_URL = process.env.NEXT_PUBLIC_API_URL;
+
 export async function generateStaticParams() {
   const productos = await getProductos();
 
@@ -30,15 +32,13 @@ export default async function ProductoPage({
 
   if (!producto) notFound();
 
-  const baseUrl = "http://127.0.0.1:8080";
-
   return (
     <main className="max-w-7xl mx-auto px-4 py-12 lg:py-20">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
         {/* Galería de Imagen */}
         <div className="relative aspect-square rounded-[2rem] overflow-hidden bg-muted shadow-inner">
           <Image
-            src={`${baseUrl}${producto.imagen}`}
+            src={`${API_URL}${producto.imagen}`}
             alt={producto.nombre}
             fill
             className="object-cover hover:scale-105 transition-transform duration-700"

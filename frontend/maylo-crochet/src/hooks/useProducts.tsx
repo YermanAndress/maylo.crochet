@@ -5,6 +5,8 @@
 import { useState, useEffect } from "react";
 import { Producto } from "@/types/producto";
 
+const API_URL = process.env.NEXT_PUBLIC_API_URL;
+
 export function useProductos() {
   const [productos, setProductos] = useState<Producto[]>([]);
   const [loading, setLoading] = useState(true);
@@ -13,7 +15,7 @@ export function useProductos() {
   const fetchProductos = async () => {
     try {
       setLoading(true);
-      const res = await fetch("http://localhost:8080/api/productos");
+      const res = await fetch(`${API_URL}/api/productos`);
       if (!res.ok) throw new Error("Error al cargar productos");
       const data = await res.json();
       setProductos(data);

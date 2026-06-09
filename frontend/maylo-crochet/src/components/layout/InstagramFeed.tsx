@@ -16,7 +16,7 @@ export function InstagramFeed() {
     <section className="py-20 lg:py-28">
       <div className="mx-auto max-w-7xl px-4 lg:px-8">
         <div className="text-center mb-12">
-          <p className="text-sm font-medium tracking-widest text-primary uppercase mb-3">
+          <p className="text-lg font-bold tracking-widest text-primary uppercase mb-3">
             Síguenos
           </p>
           <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-semibold text-foreground">

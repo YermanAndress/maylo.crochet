@@ -7,6 +7,5 @@ public record ErrorDetails(
         LocalDateTime timestamp,
         String message,
         int status,
-        Map<String, String> errors // Para validaciones, puede ser null en otros casos
-) {
+        Map<String, String> errors) {
 }

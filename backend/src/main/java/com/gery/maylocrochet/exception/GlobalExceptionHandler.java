@@ -10,8 +10,6 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
-// backend/src/main/java/com/gery/maylocrochet/exception/GlobalExceptionHandler.java
-// backend/src/main/java/com/gery/maylocrochet/exception/GlobalExceptionHandler.java
 @ControllerAdvice
 public class GlobalExceptionHandler {
 

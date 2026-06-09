@@ -17,23 +17,25 @@ export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
 
   // Calculamos la cantidad total de artículos sumando sus cantidades individuales
-  const totalItems = items.reduce((acc, item) => acc + (item.quantity || 1), 0);
-
+  const totalItems = items.reduce(
+    (acc: number, item) => acc + item.quantity,
+    0,
+  );
   return (
     <header className="sticky top-0 z-50 w-full bg-background/95 backdrop-blur border-b border-border">
-      <nav className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 lg:px-8">
+      <nav className="mx-auto flex max-w-screen items-center justify-between px-4 py-4 lg:px-8">
         {/* Logo */}
         <Link
           href="/"
           className="flex items-center gap-2 hover:opacity-80 transition-opacity"
         >
           <span className="font-serif text-2xl md:text-3xl font-semibold text-foreground tracking-tight">
-            Hilitos de Amor
+            MayloCrochet
           </span>
         </Link>
 
         {/* Desktop Navigation */}
-        <NavLinks className="hidden lg:flex lg:items-center lg:gap-8" />
+        <NavLinks className="hidden lg:flex lg:items-center lg:gap-10" />
 
         {/* Actions */}
         <div className="flex items-center gap-2 md:gap-4">

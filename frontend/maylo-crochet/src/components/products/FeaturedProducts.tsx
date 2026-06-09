@@ -9,7 +9,12 @@ export default async function FeaturedProducts() {
 
   // Filtramos para NO mostrar patrones y tomamos los últimos 6
   const destacados = productos
-    .filter((p) => p.categoria.toLowerCase() !== "patron")
+    .filter(
+      (p) =>
+        p.categoria.toLowerCase() !== "patron" &&
+        p.categoria.toLowerCase() !== "personalizado",
+    )
+    .reverse()
     .slice(0, 6);
 
   return (
@@ -17,7 +22,7 @@ export default async function FeaturedProducts() {
       <div className="mx-auto max-w-7xl px-4 lg:px-8">
         {/* Cabecera */}
         <div className="text-center mb-12">
-          <p className="text-sm font-medium tracking-widest text-primary uppercase mb-3">
+          <p className="text-lg font-bold tracking-widest text-primary uppercase mb-3">
             Productos Destacados
           </p>
           <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-semibold text-foreground">

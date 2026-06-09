@@ -1,3 +1,4 @@
+import PersonalizadoSection from "@/components/personalizado/PersonalizadoSection";
 import { CategoriesSection } from "@/components/category/CategoriesSection";
 import FeaturedProducts from "@/components/products/FeaturedProducts";
 import PatternsSection from "@/components/pattern/PatternsSection";
@@ -11,6 +12,9 @@ export default async function Page() {
 
       {/* 2. Grid de Productos Físicos */}
       <FeaturedProducts />
+
+      {/* 3. Sección de Patrones Digitales */}
+      <PersonalizadoSection />
 
       {/* 3. Sección de Patrones Digitales */}
       <PatternsSection />

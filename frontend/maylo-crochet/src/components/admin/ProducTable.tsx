@@ -8,6 +8,8 @@ import ProductForm from "@/components/admin/ProductForm";
 import { Producto } from "@/types/producto";
 import Modal from "@/components/ui/Modal";
 
+const API_URL = process.env.NEXT_PUBLIC_API_URL;
+
 export default function ProducTable({
   productosIniciales,
 }: {
@@ -40,7 +42,7 @@ export default function ProducTable({
 
     setDeletingId(id);
     try {
-      const res = await fetch(`http://127.0.0.1:8080/api/productos/${id}`, {
+      const res = await fetch(`${API_URL}/api/productos/${id}`, {
         method: "DELETE",
       });
 
@@ -105,7 +107,7 @@ export default function ProducTable({
                 <td className="p-4 text-right space-x-2">
                   <button
                     onClick={() => abrirEdicion(p.id)}
-                    className="p-2 text-blue-600 hover:bg-blue-100 rounded-md transition-colors"
+                    className="p-2 text-blue-600 hover:bg-blue-100 rounded-md transition-colors cursor-pointer"
                     title="Editar"
                   >
                     <Pencil size={16} />
@@ -113,7 +115,7 @@ export default function ProducTable({
                   <button
                     onClick={() => handleEliminar(p.id, p.nombre)}
                     disabled={deletingId === p.id}
-                    className="p-2 text-red-600 hover:bg-red-100 rounded-md transition-colors disabled:opacity-30"
+                    className="p-2 text-red-600 hover:bg-red-100 rounded-md transition-colors disabled:opacity-30 cursor-pointer"
                     title="Eliminar"
                   >
                     {deletingId === p.id ? (

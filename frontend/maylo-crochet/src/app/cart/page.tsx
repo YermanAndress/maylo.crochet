@@ -6,12 +6,17 @@ import { Minus, Plus, Trash2, ShoppingBag } from "lucide-react";
 import { useCart } from "@/context/CartContext";
 import { FormatPrice } from "@/lib/utils";
 
+const API_URL = process.env.NEXT_PUBLIC_API_URL;
+
+const numeroWhatsApp = process.env.NEXT_PUBLIC_WPP_NUMBER_TEST || "";
+
 export default function CarritoPage() {
   const { items, updateQuantity, removeFromCart, total } = useCart();
 
   if (items.length === 0) {
     return (
-      <div className="max-w-7xl mx-auto px-4 py-20 text-center">
+      // Quitamos el min-h-screen si estorba y nos aseguramos de que sea un <main>
+      <main className="flex-1 flex flex-col items-center justify-center min-h-[60vh] max-w-7xl mx-auto px-4 py-20 text-center">
         <div className="bg-muted w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6">
           <ShoppingBag className="h-10 w-10 text-muted-foreground" />
         </div>
@@ -27,12 +32,33 @@ export default function CarritoPage() {
         >
           Ir al catálogo
         </Link>
-      </div>
+      </main>
     );
   }
 
+  const handleFinalizarCompra = () => {
+
+    const listaProductos = items
+      .map(
+        (item) =>
+          `- ${item.nombre} x${item.quantity} (${FormatPrice(item.precio * item.quantity)})`,
+      )
+      .join("\n");
+
+    const mensaje = `¡Hola Maylo Crochet! 🧶🐶\n\nEstoy interesado en realizar el siguiente pedido:\n\n${listaProductos}\n\n*Total estimado: ${FormatPrice(total)}*\n\n¿Me podrías confirmar disponibilidad y costo de envío? 😊`;
+
+    // ✅ Forma recomendada: Crea los parámetros de la URL de forma segura
+    const params = new URLSearchParams({
+      phone: numeroWhatsApp,
+      text: mensaje,
+    });
+
+    const url = `https://api.whatsapp.com/send?${params.toString()}`;
+    window.open(url, "_blank");
+  };
+
   return (
-    <main className="max-w-7xl mx-auto px-4 py-12 lg:py-20">
+    <main className="min-h-100 max-w-7xl mx-auto px-4 py-12 lg:py-20">
       <h1 className="text-4xl font-serif font-bold mb-10">Tu Carrito</h1>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
@@ -45,7 +71,7 @@ export default function CarritoPage() {
             >
               <div className="relative h-24 w-24 sm:h-32 sm:w-32 rounded-2xl overflow-hidden bg-muted flex-shrink-0">
                 <Image
-                  src={`http://127.0.0.1:8080${item.imagen}`}
+                  src={`${API_URL}${item.imagen}`}
                   alt={item.nombre}
                   fill
                   className="object-cover"
@@ -121,7 +147,10 @@ export default function CarritoPage() {
               </div>
             </div>
 
-            <button className="w-full bg-primary text-white py-4 rounded-full cursor-pointer font-bold text-lg hover:bg-primary/90 transition-all shadow-lg shadow-primary/20 mb-4">
+            <button
+              onClick={handleFinalizarCompra}
+              className="w-full bg-primary text-white py-4 rounded-full cursor-pointer font-bold text-lg hover:bg-primary/90 transition-all shadow-lg shadow-primary/20 mb-4"
+            >
               Finalizar Compra
             </button>
 

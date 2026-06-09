@@ -5,8 +5,8 @@ import { useState, useMemo, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
 import { ArrowUpDown } from "lucide-react";
 
-import { ProductFilter } from "./ProductFilter"; // Import local
 import { ProductCard } from "@/components/products/ProductCard";
+import { ProductFilter } from "./ProductFilter";
 import { Producto } from "@/types/producto";
 
 export default function CatalogoClient({
@@ -32,13 +32,20 @@ export default function CatalogoClient({
   }, [categoriaQuery]);
 
   const categorias = useMemo(
-    () => ["Todas", ...Array.from(new Set(productos.map((p) => p.categoria)))],
+    () => [
+      "Todas",
+      ...Array.from(new Set(productos.map((p) => p.categoria))).filter(
+        (cat) => cat.toLowerCase() !== "personalizado",
+      ), // ✅ Quitamos la opción de la lista
+    ],
     [productos],
   );
 
   const productosFiltrados = useMemo(() => {
     return productos
       .filter((p) => {
+        if (p.categoria.toLowerCase() === "personalizado") return false;
+
         const matchCategoria =
           categoria === "Todas" || p.categoria === categoria;
         const matchPrecio = p.precio <= precioMax;
@@ -52,6 +59,8 @@ export default function CatalogoClient({
       .sort((a, b) => {
         if (orden === "precio-asc") return a.precio - b.precio;
         if (orden === "precio-desc") return b.precio - a.precio;
+        if (orden === "fecha-asc") return Number(a.id) - Number(b.id);
+        if (orden === "fecha-desc") return Number(b.id) - Number(a.id);
         return 0;
       });
   }, [productos, categoria, precioMax, orden, searchQuery]);
@@ -84,6 +93,7 @@ export default function CatalogoClient({
               className="bg-transparent text-sm font-medium outline-none cursor-pointer"
             >
               <option value="fecha-desc">Más recientes</option>
+              <option value="fecha-asc">Más Antiguos</option>
               <option value="precio-asc">Precio: Menor a Mayor</option>
               <option value="precio-desc">Precio: Mayor a Menor</option>
             </select>

@@ -7,14 +7,14 @@ import { AddToCartButton } from "@/components/ui/AddToCartButton";
 import { Producto } from "@/types/producto";
 import { FormatPrice } from "@/lib/utils";
 
-export function PatternItem({ item }: { item: Producto }) {
-  const baseUrl = "http://127.0.0.1:8080";
+const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
+export function PatternItem({ item }: { item: Producto }) {
   return (
     <article className="group relative aspect-square overflow-hidden rounded-3xl bg-muted shadow-lg">
       {/* 1. Capa de Imagen (Fondo) */}
       <Image
-        src={`${baseUrl}${item.imagen}`}
+        src={`${API_URL}${item.imagen}`}
         alt={item.nombre}
         fill
         className="object-cover transition-transform duration-700 group-hover:scale-110"

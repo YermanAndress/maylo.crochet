@@ -3,7 +3,8 @@ import Link from "next/link";
 
 const navigation = [
   { name: "Tienda", href: "/catalogo" },
-  { name: "Colecciones", href: "/#colecciones" }, // Añadimos / para que funcione desde cualquier página
+  { name: "Personalizados", href: "/personalizados" },
+  { name: "Colecciones", href: "/#colecciones" },
   { name: "Sobre Mí", href: "/#sobre-mi" },
   { name: "Contacto", href: "/#contacto" },
 ];
